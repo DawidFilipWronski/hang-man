@@ -104,3 +104,11 @@
 .body + .body + .body{
     transform: rotate(305deg);       
 }
+.game-over{
+    position: absolute;
+    top: 37%;
+    left: 25%;    
+    font-size: 180px;
+    text-transform: uppercase;
+    color: red;
+}

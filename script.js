@@ -1,6 +1,8 @@
 const sentence = 'abracadabra';
 const sentenceContainer = document.querySelector('.sentence-container');
 const manContainer = document.querySelector('.man-container');
+const gameContainer = document.querySelector('.game-container');
+let lives = 6;
 
 //creates letter DOM
 function createLetter(text) {
@@ -22,6 +24,23 @@ function createHangman(className) {
     hangmanPart.classList.add(className);
     hangmanPart.style.display = 'none';
 }
+//print game over logo
+function gameOver() {
+    const banner = document.createElement('div');
+    banner.textContent = "game over";
+    banner.classList.add('game-over');
+    gameContainer.appendChild(banner);
+}
+function resetGame() {
+    lives = 6;
+    while( sentenceContainer.firstChild ){
+        sentenceContainer.removeChild(sentenceContainer.firstChild)
+    }
+    while( manContainer.firstChild ){
+        manContainer.removeChild(manContainer.firstChild);
+    }
+    initGame();
+}
 //hide letters value
 function hideLetters() {
     const letters = document.querySelectorAll('.letter');
@@ -35,7 +54,7 @@ function hideLetters() {
 
 
 
-
+function initGame() {
 [...sentence].forEach(element => {
     createLetter(element);
 });
@@ -46,17 +65,32 @@ createHangman('body');
 createHangman('body');
 createHangman('body');
 
-
 hideLetters();
+}
 window.addEventListener('keydown', (e) => {
     const letters = document.querySelectorAll('.letter');
+    const banner = document.querySelector('.game-over');
+    if ( banner ){
+        console.log('banner is awesome');            
+            console.log(banner);
+            banner.remove();
+            resetGame();
+            console.log(lives);
+    }
+    if( !banner ){
         //look for wrong letter
         for (let i = 0; i < letters.length; i++) {
             const element = letters[i];
             if ( !sentence.includes(e.key) ) {
                 const hangmanPartToShow = manContainer.querySelector('span[style="display: none;"]');
                 hangmanPartToShow.style.display = "block";
+                lives--;
+
                 console.log(hangmanPartToShow);
+                if( lives == 0 ) {
+                    gameOver();
+                                       
+                }
                 break;
             }            
         }
@@ -67,9 +101,10 @@ window.addEventListener('keydown', (e) => {
                 element.style.color = "white";
                 element.style.transition = "color .2s";
             } 
-        });        
+        });
+    }        
     });
 
-
-
-
+initGame();
+const span = document.querySelector('span:nth-child(5)');
+console.log(span);
