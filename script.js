@@ -1,9 +1,11 @@
-const sentence = 'abracadabra';
 const sentenceContainer = document.querySelector('.sentence-container');
 const manContainer = document.querySelector('.man-container');
 const gameContainer = document.querySelector('.game-container');
-let lives = 6;
+const container = document.querySelector('.container');
+const sentence = 'abracadabra';
 const alphabet = ['a', 'ą', 'b', 'c', 'ć', 'd', 'e', 'ę', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'o', 'ó', 'p', 'q', 'r', 's', 'ś', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ź', 'ż'];
+let lives = 6;
+let clicked = false;
 
 //creates letter DOM
 function createLetter(text) {
@@ -25,6 +27,24 @@ function createHangman(className) {
     hangmanPart.classList.add(className);
     hangmanPart.style.display = 'none';
 }
+function startGame() {
+    const banner = document.createElement('div');
+    banner.classList.add('start-game-board');
+    banner.textContent = 'start game';
+    container.appendChild(banner);
+    gameContainer.style.display = 'none';
+    banner.addEventListener('click', () => {
+        gameContainer.style.display = 'block';
+        banner.style.display = 'none';
+        setTimeout(() => {
+            if ( !clicked ) {
+                console.log('ciekawe czy klawisze moga sie przydac');
+            }
+        }, 5000);
+    })
+    
+}
+startGame();
 //print game over logo
 function gameOver() {
     const banner = document.createElement('div');
@@ -42,6 +62,7 @@ function resetGame() {
     }
     initGame();
 }
+
 //hide letters value
 function hideLetters() {
     const letters = document.querySelectorAll('.letter');
@@ -69,6 +90,7 @@ hideLetters();
 window.addEventListener('keydown', (e) => {
     const letters = document.querySelectorAll('.letter');
     const banner = document.querySelector('.game-over');
+    clicked = true;
     if ( banner ){           
             banner.remove();
             resetGame();
@@ -80,6 +102,7 @@ window.addEventListener('keydown', (e) => {
             if ( !sentence.includes(e.key) ) {
                 const hangmanPartToShow = manContainer.querySelector('span[style="display: none;"]');
                 hangmanPartToShow.style.display = "block";
+                lives--;
                 if( lives == 0 ) {
                     gameOver();                                       
                 }
@@ -97,3 +120,4 @@ window.addEventListener('keydown', (e) => {
     }        
     });
 initGame();
+

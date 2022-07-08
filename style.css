@@ -112,3 +112,19 @@
     text-transform: uppercase;
     color: red;
 }
+.start-game-board{
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+    line-height: 100vh;
+    text-align: center;
+    font-size: 100px;
+    text-transform: uppercase;
+    font-family: 'Indie Flower', cursive;
+}
+.start-game-board:hover{
+    cursor: pointer;
+}
+.start-game-board::selection{
+    background-color: transparent;
+}
