@@ -3,6 +3,7 @@ const sentenceContainer = document.querySelector('.sentence-container');
 const manContainer = document.querySelector('.man-container');
 const gameContainer = document.querySelector('.game-container');
 let lives = 6;
+const alphabet = ['a', 'ą', 'b', 'c', 'ć', 'd', 'e', 'ę', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'o', 'ó', 'p', 'q', 'r', 's', 'ś', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ź', 'ż'];
 
 //creates letter DOM
 function createLetter(text) {
@@ -49,11 +50,6 @@ function hideLetters() {
     });
 }
 
-
-
-
-
-
 function initGame() {
 [...sentence].forEach(element => {
     createLetter(element);
@@ -67,29 +63,25 @@ createHangman('body');
 
 hideLetters();
 }
+
+
+// game flow
 window.addEventListener('keydown', (e) => {
     const letters = document.querySelectorAll('.letter');
     const banner = document.querySelector('.game-over');
-    if ( banner ){
-        console.log('banner is awesome');            
-            console.log(banner);
+    if ( banner ){           
             banner.remove();
             resetGame();
-            console.log(lives);
     }
-    if( !banner ){
+    if( !banner && alphabet.includes(e.key)){
         //look for wrong letter
         for (let i = 0; i < letters.length; i++) {
             const element = letters[i];
             if ( !sentence.includes(e.key) ) {
                 const hangmanPartToShow = manContainer.querySelector('span[style="display: none;"]');
                 hangmanPartToShow.style.display = "block";
-                lives--;
-
-                console.log(hangmanPartToShow);
                 if( lives == 0 ) {
-                    gameOver();
-                                       
+                    gameOver();                                       
                 }
                 break;
             }            
@@ -104,7 +96,4 @@ window.addEventListener('keydown', (e) => {
         });
     }        
     });
-
 initGame();
-const span = document.querySelector('span:nth-child(5)');
-console.log(span);
