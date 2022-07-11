@@ -2,6 +2,7 @@ const sentenceContainer = document.querySelector('.sentence-container');
 const manContainer = document.querySelector('.man-container');
 const gameContainer = document.querySelector('.game-container');
 const container = document.querySelector('.container');
+const startButton = document.querySelector('.start-game');
 const sentence = 'abracadabra';
 const alphabet = ['a', 'ą', 'b', 'c', 'ć', 'd', 'e', 'ę', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'ł', 'm', 'n', 'ń', 'o', 'ó', 'p', 'q', 'r', 's', 'ś', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ź', 'ż'];
 let lives = 6;
@@ -30,7 +31,6 @@ function createHangman(className) {
 function startGame() {
     const banner = document.createElement('div');
     banner.classList.add('start-game-board');
-    banner.textContent = 'start game';
     container.appendChild(banner);
     gameContainer.style.display = 'none';
     banner.addEventListener('click', () => {
@@ -44,7 +44,7 @@ function startGame() {
     })
     
 }
-startGame();
+
 //print game over logo
 function gameOver() {
     const banner = document.createElement('div');
@@ -119,5 +119,19 @@ window.addEventListener('keydown', (e) => {
         });
     }        
     });
-initGame();
+
+
+startButton.addEventListener('click', () => {
+    const startLogoRope = document.querySelector('.rope-logo');
+    startLogoRope.classList.add('rope-logo-animation');
+    setTimeout(() => {
+        const startGameBoard = document.querySelector('.start-game-board');
+        startGameBoard.style.display = 'none';
+        gameContainer.style.display = 'block';
+        gameContainer.style.opacity = '1';
+        initGame();
+    }, 1600);
+})
+gameContainer.style.display = 'none';
+
 
